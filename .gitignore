@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+.claude/
+server/public
+vite.config.ts.*
+*.tar.gz
+.env
+.env.*
+!.env.example
+rest-express@1.0.0
+tsc

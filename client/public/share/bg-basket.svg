@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <radialGradient id="arena" cx="52%" cy="16%" r="72%">
+      <stop offset="0" stop-color="#27323f"/>
+      <stop offset="0.48" stop-color="#0b0b0d"/>
+      <stop offset="1" stop-color="#020202"/>
+    </radialGradient>
+    <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.22" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4b2815"/>
+      <stop offset="0.48" stop-color="#2a160c"/>
+      <stop offset="1" stop-color="#060403"/>
+    </linearGradient>
+    <radialGradient id="ball" cx="35%" cy="24%" r="72%">
+      <stop offset="0" stop-color="#de8345"/>
+      <stop offset="0.52" stop-color="#a84f26"/>
+      <stop offset="1" stop-color="#2a1209"/>
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence baseFrequency="0.85" numOctaves="2" seed="11"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.07"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#arena)"/>
+  <g opacity="0.5">
+    <ellipse cx="600" cy="310" rx="620" ry="150" fill="#14161a"/>
+    <g fill="#ffffff" opacity="0.22">
+      <rect x="95" y="285" width="7" height="3"/>
+      <rect x="118" y="276" width="8" height="3"/>
+      <rect x="930" y="276" width="8" height="3"/>
+      <rect x="955" y="285" width="7" height="3"/>
+      <rect x="540" y="238" width="8" height="4"/>
+      <rect x="570" y="232" width="8" height="4"/>
+      <rect x="600" y="230" width="8" height="4"/>
+      <rect x="630" y="232" width="8" height="4"/>
+    </g>
+  </g>
+  <ellipse cx="275" cy="305" rx="135" ry="28" fill="url(#lamp)" filter="url(#blur)"/>
+  <ellipse cx="920" cy="310" rx="155" ry="32" fill="url(#lamp)" filter="url(#blur)"/>
+  <ellipse cx="602" cy="245" rx="180" ry="40" fill="url(#lamp)" filter="url(#blur)" opacity="0.62"/>
+  <path d="M0 510 C280 420 920 420 1200 510 L1200 900 L0 900Z" fill="url(#wood)"/>
+  <g opacity="0.45" stroke="#f8fafc" stroke-opacity="0.18" fill="none">
+    <ellipse cx="610" cy="705" rx="330" ry="88" stroke-width="3"/>
+    <ellipse cx="610" cy="705" rx="128" ry="36" stroke-width="3"/>
+    <path d="M0 740 C300 650 900 650 1200 740" stroke-width="4"/>
+  </g>
+  <g transform="translate(620 498)">
+    <ellipse cx="115" cy="160" rx="132" ry="42" fill="#000" opacity="0.66" filter="url(#blur)"/>
+    <circle cx="106" cy="102" r="98" fill="url(#ball)"/>
+    <path d="M106 4 C84 54 84 150 106 200" fill="none" stroke="#140905" stroke-width="6" opacity="0.72"/>
+    <path d="M106 4 C132 54 132 150 106 200" fill="none" stroke="#140905" stroke-width="6" opacity="0.72"/>
+    <path d="M10 103 H202" stroke="#140905" stroke-width="6" opacity="0.72"/>
+    <path d="M34 42 C80 80 132 80 180 42" fill="none" stroke="#140905" stroke-width="5" opacity="0.66"/>
+    <path d="M34 164 C80 126 132 126 180 164" fill="none" stroke="#140905" stroke-width="5" opacity="0.66"/>
+    <circle cx="106" cy="102" r="98" fill="none" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"/>
+  </g>
+  <rect width="1200" height="900" filter="url(#grain)" opacity="0.34"/>
+</svg>

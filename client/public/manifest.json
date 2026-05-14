@@ -1,0 +1,20 @@
+{
+  "name": "Oddsmark",
+  "short_name": "Oddsmark",
+  "description": "Tracker de apuestas verificadas con anclaje criptográfico",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "orientation": "portrait",
+  "categories": ["finance", "sports"],
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

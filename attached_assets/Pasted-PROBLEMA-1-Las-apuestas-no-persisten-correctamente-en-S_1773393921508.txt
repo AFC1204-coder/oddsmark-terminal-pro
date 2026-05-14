@@ -1,0 +1,108 @@
+PROBLEMA 1: Las apuestas no persisten correctamente en Supabase
+CONTEXTO IMPORTANTE — La tabla real en Supabase
+He inspeccionado la tabla bets directamente en el dashboard de Supabase. La tabla fue creada manualmente en Supabase (NO por migraciones de Drizzle — dice "No migrations"). Su estructura REAL es esta:
+
+id → uuid (PK, autogenerado)
+user_id → uuid
+sport → text
+competition → text ← (NO se llama "league")
+event → text
+date → timestamptz
+type → text (equivale a "bet_type" en el código)
+market → text
+selection → text
+odds → numeric
+stake → numeric
+profit → numeric
+status → text
+result → text
+metadata → jsonb
+created_at → timestamptz
+bookie → text
+cashout_val → numeric
+is_live → bool
+notes → text
+closing_odds → numeric
+tipster → text
+link → text
+bet_type → text
+comment → text
+images → text[]
+tags → text[]
+commission → numeric
+is_free_bet → bool
+current_cashout → numeric
+confidence → numeric
+potential_return → numeric
+currency → text (default "EUR")
+player → text
+position → text
+formation → text
+team → text
+league_id → text
+is_validated → bool
+is_substitute → bool
+tactic → text
+market_type → text
+match_side → text
+image_url → text
+verified → bool
+line → numeric
+is_cashout → bool
+is_value → bool
+is_parlay → bool
+is_long_term → bool
+resolution_date → text
+selections → jsonb
+updated_at → timestamptz
+league → text (columna vacía, no se usa)
+RLS está desactivado (UNRESTRICTED). Hay 6 registros que sí persistieron.
+
+EL PROBLEMA
+El schema Drizzle en shared/schema.ts está completamente desalineado con la tabla real:
+
+Drizzle define id como integer().generatedAlwaysAsIdentity() pero la tabla usa uuid.
+Drizzle define league: text("league") pero la tabla usa competition.
+Drizzle define date como text pero la tabla usa timestamptz.
+El tipo Bet (inferido de Drizzle) tiene id: number pero debería ser id: string (uuid).
+profit siempre se guarda como 0 — nunca se calcula.
+La app actualmente funciona parcialmente porque dashboard.tsx usa betService.ts (cliente Supabase directo) para las bets, NO las rutas del servidor. Pero hay desajustes en el mapeo que causan pérdida de datos.
+
+CAMBIOS EXACTOS A REALIZAR
+1. shared/schema.ts — Alinear el schema Drizzle con la tabla real de Supabase:
+
+Cambiar id de integer("id").primaryKey().generatedAlwaysAsIdentity() a uuid("id").primaryKey().defaultRandom()
+Cambiar league: text("league") a competition: text("competition")
+Cambiar date: text("date").notNull() a date: timestamp("date", { withTimezone: true }).notNull()
+Cambiar createdAt: timestamp("created_at") para que tenga { withTimezone: true }
+Asegurar que el tipo exportado Bet refleje id: string no id: number
+Añadir la columna profit: numeric("profit") si no existe
+Actualizar insertBetSchema para omitir id y createdAt correctamente
+2. client/src/services/betService.ts — Corregir el mapeo:
+En SupabaseBetRow, asegurar que id es string (uuid)
+En rowToSchemaBet, NO hacer cast row.id as unknown as number, dejarlo como string
+En rowToSchemaBet, leer competition en vez de buscar league: league: row.competition || ""
+En betInputToRow (línea 139), confirmar que ya envía competition: input.league || "" (esto ya está correcto)
+En createBet, calcular el profit ANTES de insertar cuando el status no es "pending":
+
+Si status === "won": profit = (odds * stake) - stake
+Si status === "lost": profit = -stake
+Si status === "void" o "pending": profit = 0
+
+
+En updateBet, recalcular profit si cambia el status
+3. client/src/pages/dashboard.tsx — Ajustar tipos:
+Donde se use bet.id como number, cambiarlo a string | number o simplemente string
+En handleSaveBet, asegurar que league se mapee correctamente (ya envía league: bet.league al betService, y betService lo convierte a competition)
+4. server/storage.ts — Alinear con la nueva estructura:
+La función createBet usa db.insert(bets).values(bet).returning() — esto funcionará automáticamente cuando el schema Drizzle esté corregido
+Asegurar que getBetsByUser filtre por user_id correctamente con uuid
+5. server/routes.ts — Verificar que las rutas /api/bets funcionen con los nuevos tipos (uuid para id, etc.)
+
+PRIORIDAD
+El cambio más crítico es alinear shared/schema.ts con la tabla real, ya que todos los tipos se infieren de ahí. Después ajustar betService.ts para el mapeo correcto y el cálculo de profit.
+NO TOCAR
+
+No cambiar la estructura de la tabla en Supabase (es la fuente de verdad)
+No activar RLS por ahora
+No cambiar la lógica de autenticación

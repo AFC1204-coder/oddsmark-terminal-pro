@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: terminal-pro
+    runtime: node
+    buildCommand: npm ci && npm run build && npx drizzle-kit push
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: terminal-pro-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: APP_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+    healthCheckPath: /api/health
+    autoDeploy: true
+
+databases:
+  - name: terminal-pro-db
+    plan: free
+    databaseName: terminal_pro

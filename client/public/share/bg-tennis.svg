@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <radialGradient id="night" cx="50%" cy="16%" r="80%">
+      <stop offset="0" stop-color="#1b2431"/>
+      <stop offset="0.46" stop-color="#070b0c"/>
+      <stop offset="1" stop-color="#010202"/>
+    </radialGradient>
+    <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.86"/>
+      <stop offset="0.2" stop-color="#ffffff" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="court" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18211d"/>
+      <stop offset="0.52" stop-color="#0b1110"/>
+      <stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <radialGradient id="ball" cx="35%" cy="25%" r="70%">
+      <stop offset="0" stop-color="#efff99"/>
+      <stop offset="0.52" stop-color="#83d51d"/>
+      <stop offset="1" stop-color="#1f4109"/>
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence baseFrequency="0.92" numOctaves="2" seed="5"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.08"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#night)"/>
+  <ellipse cx="325" cy="300" rx="150" ry="28" fill="url(#lamp)" filter="url(#blur)" opacity="0.8"/>
+  <ellipse cx="880" cy="298" rx="160" ry="30" fill="url(#lamp)" filter="url(#blur)" opacity="0.86"/>
+  <path d="M0 488 C280 410 920 410 1200 488 L1200 900 L0 900Z" fill="url(#court)"/>
+  <g fill="none" stroke="#ffffff" stroke-linecap="round">
+    <path d="M115 850 L1090 610" stroke-opacity="0.32" stroke-width="9"/>
+    <path d="M610 900 L936 536" stroke-opacity="0.18" stroke-width="5"/>
+    <path d="M210 704 C460 628 765 590 1060 574" stroke-opacity="0.12" stroke-width="3"/>
+  </g>
+  <g transform="translate(752 508)">
+    <ellipse cx="72" cy="126" rx="96" ry="30" fill="#000" opacity="0.7" filter="url(#blur)"/>
+    <circle cx="68" cy="78" r="67" fill="url(#ball)"/>
+    <path d="M5 80 C28 50 48 42 70 42 C96 42 120 58 132 84" fill="none" stroke="#ecfccb" stroke-width="5" opacity="0.86"/>
+    <path d="M3 78 C25 108 47 116 69 116 C96 116 120 98 134 72" fill="none" stroke="#ecfccb" stroke-width="5" opacity="0.86"/>
+    <circle cx="68" cy="78" r="67" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+  </g>
+  <rect width="1200" height="900" filter="url(#grain)" opacity="0.32"/>
+</svg>

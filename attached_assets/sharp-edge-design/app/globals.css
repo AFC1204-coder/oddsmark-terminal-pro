@@ -1,0 +1,149 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Quiet Luxury theme - deep carbon background, emerald green profits, wine red losses */
+:root {
+  --background: #0a0a0a;
+  --foreground: #f5f5f4;
+  --card: #141414;
+  --card-foreground: #f5f5f4;
+  --popover: #141414;
+  --popover-foreground: #f5f5f4;
+  --primary: #f5f5f4;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f4;
+  --muted: #1a1a1a;
+  --muted-foreground: #737373;
+  --accent: #047857;
+  --accent-foreground: #f5f5f4;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f5f5f4;
+  --border: #262626;
+  --input: #262626;
+  --ring: #404040;
+  --chart-1: #047857;
+  --chart-2: #0369a1;
+  --chart-3: #7c3aed;
+  --chart-4: #ca8a04;
+  --chart-5: #dc2626;
+  --radius: 0.75rem;
+
+  /* Custom betting colors */
+  --profit: #047857;
+  --loss: #7f1d1d;
+  --pending: #ca8a04;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f5f5f4;
+  --card: #141414;
+  --card-foreground: #f5f5f4;
+  --popover: #141414;
+  --popover-foreground: #f5f5f4;
+  --primary: #f5f5f4;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f4;
+  --muted: #1a1a1a;
+  --muted-foreground: #737373;
+  --accent: #047857;
+  --accent-foreground: #f5f5f4;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f5f5f4;
+  --border: #262626;
+  --input: #262626;
+  --ring: #404040;
+  --chart-1: #047857;
+  --chart-2: #0369a1;
+  --chart-3: #7c3aed;
+  --chart-4: #ca8a04;
+  --chart-5: #dc2626;
+
+  --profit: #047857;
+  --loss: #7f1d1d;
+  --pending: #ca8a04;
+}
+
+@theme inline {
+  /* Inter for UI, JetBrains Mono for numbers */
+  --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  /* Custom betting status colors */
+  --color-profit: var(--profit);
+  --color-loss: var(--loss);
+  --color-pending: var(--pending);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Scrollbar styling for quiet luxury aesthetic */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(4, 120, 87, 0.3);
+  color: #f5f5f4;
+}
